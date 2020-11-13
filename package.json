@@ -44,6 +44,7 @@
     "react": "^16.13.0"
   },
   "dependencies": {
+    "@palustris/js-utils": "https://gitlab.palustris.dk/gartneriet/js-utils.git",
     "inflection": "^1.12.0",
     "lodash.get": "^4.4.2",
     "react-color": "^2.14.1",
