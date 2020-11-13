@@ -12,19 +12,24 @@ import { LightenDarkenColor} from "@palustris/js-utils/lib/Color/LightenDarken";
 
 require('./ColorInput.css');
 
+const ColorDot = ({color, amount=-50}) => (
+    <div style={{
+        width: '20px',
+        height: '20px',
+        borderWidth: '2px',
+        border: 'solid',
+        borderColor: LightenDarkenColor(color, amount),
+        background: color,
+        marginRight: '5px',
+    }}
+    />
+
+);
+
 const ColorFieldComponent = ({source, record = {}, className}) =>
     (
         <div style={{display: 'flex'}}>
-            <div style={{
-                width: '20px',
-                height: '20px',
-                borderWidth: '2px',
-                border: 'solid',
-                borderColor: LightenDarkenColor(get(record, source), -50),
-                background: get(record, source),
-                marginRight: '5px',
-            }}
-            />
+            <ColorDot color={get(record, source)}/>
             <span className={className}>{get(record, source)}</span>
         </div>
     );
@@ -98,13 +103,7 @@ class ColorInputComponent extends React.Component {
                             className={className}
                             InputProps={{
                                 startAdornment: <InputAdornment position="start">
-                                    <div style={{
-                                        width: '20px',
-                                        height: '20px',
-                                        background: input.value,
-                                        marginRight: '5px',
-                                    }}
-                                    />
+                                    <ColorDot color={input.value}/>
                                 </InputAdornment>,
                             }}
                         />
