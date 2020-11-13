@@ -11,12 +11,45 @@ import {FocusWithin} from 'react-focus-within'
 
 require('./ColorInput.css');
 
+const LightenDarkenColor = (col, amt) => {
+
+    let usePound = false;
+
+    if (col[0] == "#") {
+        col = col.slice(1);
+        usePound = true;
+    }
+
+    let num = parseInt(col,16);
+
+    let r = (num >> 16) + amt;
+
+    if (r > 255) r = 255;
+    else if  (r < 0) r = 0;
+
+    let b = ((num >> 8) & 0x00FF) + amt;
+
+    if (b > 255) b = 255;
+    else if  (b < 0) b = 0;
+
+    let g = (num & 0x0000FF) + amt;
+
+    if (g > 255) g = 255;
+    else if (g < 0) g = 0;
+
+    return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
+
+}
+
 const ColorFieldComponent = ({source, record = {}, className}) =>
     (
         <div style={{display: 'flex'}}>
             <div style={{
                 width: '20px',
                 height: '20px',
+                borderWidth: '2px',
+                border: 'solid',
+                borderColor: LightenDarkenColor(get(record, source), -50),
                 background: get(record, source),
                 marginRight: '5px',
             }}
