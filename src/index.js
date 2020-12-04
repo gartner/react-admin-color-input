@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import inflection from 'inflection';
 import {addField, FieldTitle} from 'ra-core';
+import {useInput, required} from 'react-admin';
 import TextField from '@material-ui/core/TextField';
 import * as ReactColor from 'react-color';
 import get from 'lodash.get';
@@ -49,87 +50,71 @@ PureTextField.defaultProps = {
     addLabel: true,
 };
 
-class ColorInputComponent extends React.Component {
-    state = {
-        show: false
-    };
+export const ColorInput = props => {
+    const {
+        input: { name, onChange, value,...rest },
+        meta: { touched, error },
+        isRequired
+    } = useInput(props);
 
-    handleOpen = () => this.setState({show: true});
-    handleClose = () => this.setState({show: false});
-    handleChange = ({hex}) => {
-        this.props.input.onChange(hex);
-        this.forceUpdate();
-    };
-
-    render() {
-        const {
-            label,
-            source,
-            meta,
-            className,
-            options,
-            picker,
-            input,
-            resource,
-            helperText,
-            isRequired,
-        } = this.props;
-
-        const {
-            touched,
-            error,
-        } = meta;
-
-        const Picker = ReactColor[`${picker}Picker`];
-
-        return (
-            <FocusWithin onBlur={(event) => this.handleClose()}>
-                {({focusProps, isFocused}) => (
-                    <div {...focusProps}>
-                        <TextField
-                            {...input}
-                            margin="normal"
-                            onFocus={this.handleOpen}
-                            label={
-                                <FieldTitle
-                                    label={label}
-                                    source={source}
-                                    resource={resource}
-                                    isRequired={isRequired}
-                                />
-                            }
-                            error={!!(touched && error)}
-                            helperText={touched && error || helperText}
-                            className={className}
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start">
-                                    <ColorDot color={input.value}/>
-                                </InputAdornment>,
-                            }}
-                        />
-                        {
-                            this.state.show ?
-                                <div className="ColorInput-popup">
-                                    <div
-                                        className="ColorInput-cover"
-                                        onClick={this.handleClose}
-                                    />
-                                    <Picker
-                                        {...options}
-                                        color={input.value}
-                                        onChange={this.handleChange}
-                                    />
-                                </div>
-                                : null
-                        }
-                    </div>
-                )}
-            </FocusWithin>
-        )
+    const [show, setShow] = useState(false);
+    const handleOpen = () => setShow(true);
+    const handleClose = () => setShow(false);
+    const handleChange = ({hex}) => {
+        onChange(hex);
     }
-};
 
-ColorInputComponent.propTypes = {
+
+    const Picker = ReactColor[`${props.picker}Picker`];
+
+    return (
+        <FocusWithin onBlur={(event) => handleClose()}>
+            {({focusProps, isFocused}) => (
+                <div {...focusProps}>
+                    <TextField
+                        {...props.input}
+                        margin="normal"
+                        onFocus={handleOpen}
+                        label={
+                            <FieldTitle
+                                label={props.label}
+                                source={props.source}
+                                resource={props.resource}
+                                isRequired={isRequired}
+                            />
+                        }
+                        value={value}
+                        error={!!(touched && error)}
+                        helperText={touched && error || props.helperText}
+                        className={props.className}
+                        InputProps={{
+                            startAdornment: <InputAdornment position="start">
+                                <ColorDot color={value}/>
+                            </InputAdornment>,
+                        }}
+                    />
+                    {
+                        show ?
+                            <div className="ColorInput-popup">
+                                <div
+                                    className="ColorInput-cover"
+                                    onClick={handleClose}
+                                />
+                                <Picker
+                                    {...props.options}
+                                    color={value}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            : null
+                    }
+                </div>
+            )}
+        </FocusWithin>
+    )
+}
+
+ColorInput.propTypes = {
     label: PropTypes.string,
     options: PropTypes.object,
     source: PropTypes.string,
@@ -145,7 +130,7 @@ ColorInputComponent.propTypes = {
         new Error(`Invalid prop \`${propName}\` supplied to \`${componentName}\`.`)
 };
 
-ColorInputComponent.defaultProps = {
+ColorInput.defaultProps = {
     picker: 'Chrome',
     options: {
         disableAlpha: true
@@ -153,4 +138,3 @@ ColorInputComponent.defaultProps = {
 };
 
 export const ColorField = PureTextField;
-export const ColorInput = addField(ColorInputComponent);
