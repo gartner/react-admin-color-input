@@ -7,9 +7,9 @@
   resolved "https://registry.yarnpkg.com/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
   integrity sha512-QPcGmICAPbGLGb6F/yNf/KzKqvFx8z5qx3D1yFqVAjoFmXK35EgyW+cJ57Te3CNsmzblwtzakLGFqHPqrfb4Tw==
 
-"@palustris/js-utils@https://gitlab.palustris.dk/gartneriet/js-utils.git":
+"@palustris/js-utils@https://gitlab.palustris.dk/gartneriet/js-utils.git#master":
   version "1.0.0"
-  resolved "https://gitlab.palustris.dk/gartneriet/js-utils.git#09faf2c3c4aad34aaeedf975f1e51998c9ef7df6"
+  resolved "https://gitlab.palustris.dk/gartneriet/js-utils.git#c0573a78aabc602720a04f430e2f790d1953ddb2"
 
 "@types/prop-types@*":
   version "15.7.3"
