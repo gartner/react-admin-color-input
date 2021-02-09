@@ -1,6 +1,6 @@
 {
   "name": "@palustris/react-admin-color-input",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "<ColorInput> and <ColorField> components for react-admin. Forked from vascofg/react-admin-color-input.",
   "main": "lib/index.js",
   "scripts": {
