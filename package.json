@@ -1,10 +1,11 @@
 {
-  "name": "react-admin-color-input",
-  "version": "1.0.9",
-  "description": "<ColorInput> and <ColorField> components for react-admin. Forked from aor-color-input.",
+  "name": "@palustris/react-admin-color-input",
+  "version": "1.1.1",
+  "description": "<ColorInput> and <ColorField> components for react-admin. Forked from vascofg/react-admin-color-input.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/babel ./src -d lib --ignore '*.spec.js'"
   },
   "files": [
     "LICENSE",
@@ -14,11 +15,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vascofg/react-admin-color-input.git"
+    "url": "git+https://github.com/gartner/react-admin-color-input.git"
   },
   "keywords": [
     "reactjs",
     "rest",
+    "react-admin",
     "react",
     "color",
     "picker",
@@ -27,9 +29,9 @@
   "author": "Vasco Gonçalves",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vascofg/react-admin-color-input/issues"
+    "url": "https://github.com/gartner/react-admin-color-input/issues"
   },
-  "homepage": "https://github.com/vascofg/react-admin-color-input#readme",
+  "homepage": "https://github.com/gartner/react-admin-color-input#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -41,8 +43,8 @@
   "peerDependencies": {
     "prop-types": "^15.6.0",
     "ra-core": "^3.0.0",
-    "react-admin": "^3.0.0",
-    "react": "^16.13.0"
+    "react": "^16.13.0",
+    "react-admin": "^3.0.0"
   },
   "dependencies": {
     "@palustris/js-utils": "https://gitlab.palustris.dk/gartneriet/js-utils.git#master",
